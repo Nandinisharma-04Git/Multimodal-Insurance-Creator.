@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Multimodal Insurance Creator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <div class="brand">
+          <div class="logo">MIC</div>
+          <div>
+            <h1>Multimodal Insurance Creator</h1>
+            <p class="sub">Turn an insurance prompt into an explanation + infographic-style image.</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="card">
+        <label class="label" for="prompt">Insurance prompt</label>
+        <div class="row">
+          <input
+            id="prompt"
+            class="input"
+            type="text"
+            placeholder='e.g., "health insurance for family"'
+            autocomplete="off"
+          />
+          <button id="generateBtn" class="btn">Generate</button>
+        </div>
+
+        <div class="helper">
+          Try: <button class="chip" data-example="health insurance for family">health insurance for family</button>
+          <button class="chip" data-example="life insurance for a 30-year-old">life insurance for a 30-year-old</button>
+          <button class="chip" data-example="car insurance for new driver">car insurance for new driver</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section id="output" class="output hidden">
+        <div class="grid">
+          <article class="panel">
+            <h2>Explanation</h2>
+            <pre id="textOut" class="text"></pre>
+          </article>
+          <article class="panel">
+            <h2>Visual</h2>
+            <div class="imageWrap">
+              <div id="imgSkeleton" class="skeleton"></div>
+              <img id="imgOut" class="image hidden" alt="Generated insurance infographic" />
+            </div>
+          </article>
+        </div>
+      </section>
+
+    <!-- ✅ ADD THIS CHARTS SECTION HERE -->
+    <div id="chartsSection" class="hidden">
+      <h2 class="charts-heading">📊 Visual Breakdown</h2>
+
+      <div class="metrics-grid" id="metricsGrid">
+        <div class="metric">
+          <div class="metric-label">Rating</div>
+          <div class="metric-value" id="mRating">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Monthly premium (est.)</div>
+          <div class="metric-value" id="mPremium">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Coverage (est.)</div>
+          <div class="metric-value" id="mCoverage">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Risk score</div>
+          <div class="metric-value" id="mRisk">—</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- Bar Chart -->
+        <div class="chart-card">
+          <h3>Premium vs Coverage</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="chart-card">
+          <h3>Insurance Type Breakdown</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="chart-card chart-card--wide">
+          <h3>Cost Over Time</h3>
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- ✅ END CHARTS SECTION -->
+
+    <footer class="footer">
+      <p>
+        Uses Groq for text generation and Hugging Face Stable Diffusion for images.
+        Keep prompts insurance-focused for best results.
+      </p>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
+
